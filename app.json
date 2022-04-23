@@ -1,0 +1,25 @@
+{
+    "name": "call-all-bot",
+    "env": {
+        "API_ID": {
+            "description": "API_ID of the Telegram App.",
+            "value": ""
+        },
+        "API_HASH": {
+            "description": "API_HASH of the Telegram App.",
+            "value": ""
+        },
+        "TOKEN_BOT": {
+            "description": "Bot Token from @BotFather.",
+            "value": ""
+        },
+        "DB_ADDRESS": {
+            "description": "Postgresql database address.",
+            "value": ""
+        },
+        "DEV": {
+            "description": "ID of Developer.",
+            "value" : ""
+        }
+    }
+}
