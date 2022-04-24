@@ -57,7 +57,7 @@ EMOJIS_COMMAND = {
     False : "I don't like spam, neither do you. [Start](https://t.me/{0}?start=emojis) me on private to check emojis list.",
 }
 
-MEMBER_LIMIT_MESSAGE = 'Cannot call in groups with more than {0} members.'
+MEMBERS_LIMIT_MESSAGE = 'Cannot call in groups with more than {0} members.'
 
 USERS_MENTION_MESSAGE = '⏫{0}⏫{1}'
 USER_EMOJI_MENTION = '[{0}](tg://user?id={1})'
