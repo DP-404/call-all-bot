@@ -67,7 +67,7 @@ CALL_TERMINATED_MESSAGE = '**📣 Call terminated.**'
 
 HI_MESSAGE = 'Hi!'
 
-@bot.on(events.NewMessage(incoming=True, from_users=DEV, pattern=f'^/addtc({BUSERNAME})?$'))
+@bot.on(events.NewMessage(incoming=True, from_users=DEV, pattern=f'^/addtc(@{BUSERNAME})?$'))
 async def add_trustedchat(event:Union[events.NewMessage.Event,Message], chat_id=None):
     chat_id = event.chat_id if chat_id is None else chat_id
     added = db.TrustedChat.Add(chat_id)
@@ -77,11 +77,11 @@ async def add_trustedchat(event:Union[events.NewMessage.Event,Message], chat_id=
     print(message)
     await event.reply(message)
 
-@bot.on(events.NewMessage(incoming=True, from_users=DEV, pattern=f'^/addtc({BUSERNAME})? -[0-9]+$'))
+@bot.on(events.NewMessage(incoming=True, from_users=DEV, pattern=f'^/addtc(@{BUSERNAME})? -[0-9]+$'))
 async def add_trustedchat_id(event:Union[events.NewMessage.Event,Message]):
     await add_trustedchat(event, int(event.raw_text.split(' ')[1]))
 
-@bot.on(events.NewMessage(incoming=True, from_users=DEV, pattern=f'^/deltc({BUSERNAME})?$'))
+@bot.on(events.NewMessage(incoming=True, from_users=DEV, pattern=f'^/deltc(@{BUSERNAME})?$'))
 async def delete_trustedchat(event:Union[events.NewMessage.Event,Message], chat_id=None):
     chat_id = event.chat_id if chat_id is None else chat_id
     deleted = db.TrustedChat.Delete(chat_id)
@@ -91,23 +91,23 @@ async def delete_trustedchat(event:Union[events.NewMessage.Event,Message], chat_
     print(message)
     await event.reply(message)
 
-@bot.on(events.NewMessage(incoming=True, from_users=DEV, pattern=f'^/deltc({BUSERNAME})? -[0-9]+$'))
+@bot.on(events.NewMessage(incoming=True, from_users=DEV, pattern=f'^/deltc(@{BUSERNAME})? -[0-9]+$'))
 async def delete_trustedchat_id(event:Union[events.NewMessage.Event,Message]):
     await delete_trustedchat(event, int(event.raw_text.split(' ')[1]))
 
-@bot.on(events.NewMessage(incoming=True, pattern=f'^/setme({BUSERNAME})? .(\ufe0f)?$'))
+@bot.on(events.NewMessage(incoming=True, pattern=f'^/setme(@{BUSERNAME})? .(\ufe0f)?$'))
 async def setme_emoji(event:Union[events.NewMessage.Event,Message]):
     emoji = event.raw_text.split(' ')[1].replace('\ufe0f','')
     if emoji in db.EMOJIS:
         db.User.Edit(event.sender_id, emoji)
     await event.reply(EMOJI_CHANGED[emoji in db.EMOJIS].format(emoji, BUSERNAME))
 
-@bot.on(events.NewMessage(incoming=True, pattern=f'^/setme({BUSERNAME})?$'))
+@bot.on(events.NewMessage(incoming=True, pattern=f'^/setme(@{BUSERNAME})?$'))
 async def setme_check(event:Union[events.NewMessage.Event,Message]):
     user = db.User.Get(event.sender_id)
     await event.reply(SETME_COMMAND.format(user.emoji, BUSERNAME))
 
-@bot.on(events.NewMessage(incoming=True, pattern=f'^/emojis({BUSERNAME})?$'))
+@bot.on(events.NewMessage(incoming=True, pattern=f'^/emojis(@{BUSERNAME})?$'))
 async def emojis_list(event:Union[events.NewMessage.Event,Message]):
     try:
         message = await bot.send_message(event.sender_id, EMOJIS_MESSAGE)
