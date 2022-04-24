@@ -100,6 +100,7 @@ async def setme_emoji(event:Union[events.NewMessage.Event,Message]):
     emoji = event.raw_text.split(' ')[1].replace('\ufe0f','')
     if emoji in db.EMOJIS:
         db.User.Edit(event.sender_id, emoji)
+        users_emojis[event.sender_id] = emoji
     await event.reply(EMOJI_CHANGED[emoji in db.EMOJIS].format(emoji, BUSERNAME))
 
 @bot.on(events.NewMessage(incoming=True, pattern=f'^/setme(@{BUSERNAME})?$'))
